@@ -15,31 +15,31 @@ export class DatabaseSeeder extends Seeder {
     em.persist(Object.values(tags));
     em.persist(Object.values(authors));
 
-    const articles = [
-      em.create(Article, {
-        authors: [authors.bennie],
-        slug: 'how-to-do-something',
-        title: 'How to do something',
-        description: 'Lorem ipsum dolor sit amet',
-        tagList: [tags.coding.tag, tags.javascript.tag],
-        body: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed euismod, diam id aliquam aliquam, nunc ipsum aliquet nunc, vitae aliq',
-        favoritesCount: 3,
-        createdAt: new Date(),
-        updatedAt: new Date(),
-      }),
-      em.create(Article, {
-        authors: [authors.zolly],
-        slug: 'how-to-do-something-else',
-        title: 'How to do something else',
-        tagList: [tags.coding.tag, tags.angular.tag],
-        description: 'Sed euismod',
-        body: 'Sed euismod, diam id aliquam aliquam, nunc i consectetur adipiscing elit. Sed euismod, diam id aliquam aliquam, nunc ipsum aliquet nunc, vitae aliq',
-        favoritesCount: 7,
-        createdAt: new Date(),
-        updatedAt: new Date(),
-      }),
-    ];
-    em.persist(articles);
+    // const articles = [
+    //   em.create(Article, {
+    //     authors: [authors.bennie],
+    //     slug: 'how-to-do-something',
+    //     title: 'How to do something',
+    //     description: 'Lorem ipsum dolor sit amet',
+    //     tagList: [tags.coding.tag, tags.javascript.tag],
+    //     body: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed euismod, diam id aliquam aliquam, nunc ipsum aliquet nunc, vitae aliq',
+    //     favoritesCount: 3,
+    //     createdAt: new Date(),
+    //     updatedAt: new Date(),
+    //   }),
+    //   em.create(Article, {
+    //     authors: [authors.zolly],
+    //     slug: 'how-to-do-something-else',
+    //     title: 'How to do something else',
+    //     tagList: [tags.coding.tag, tags.angular.tag],
+    //     description: 'Sed euismod',
+    //     body: 'Sed euismod, diam id aliquam aliquam, nunc i consectetur adipiscing elit. Sed euismod, diam id aliquam aliquam, nunc ipsum aliquet nunc, vitae aliq',
+    //     favoritesCount: 7,
+    //     createdAt: new Date(),
+    //     updatedAt: new Date(),
+    //   }),
+    // ];
+    // em.persist(articles);
   }
 
   private getTags(em: EntityManager): Record<string, Tag> {

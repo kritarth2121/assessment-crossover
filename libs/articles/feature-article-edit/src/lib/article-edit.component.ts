@@ -74,41 +74,39 @@ export class ArticleEditComponent implements OnInit, OnDestroy {
         console.log('article.slug: ', article.slug);
         this.slug = article.slug;
         this.store
-        .select(selectAuthState)
-        .pipe(
-          filter((auth) => auth.loggedIn),
-          untilDestroyed(this),
-        )
-        .subscribe((auth) => {
-          console.log('username: ', auth.user.username);
-          this.lockingUser = auth.user.username;
+          .select(selectAuthState)
+          .pipe(
+            filter((auth) => auth.loggedIn),
+            untilDestroyed(this),
+          )
+          .subscribe((auth) => {
+            console.log('username: ', auth.user.username);
+            this.lockingUser = auth.user.username;
 
-          this.apiService
-            .get<IArticleLockRO>(
-              `/articles/lock?articleSlug=${article.slug}&username=${auth.user.username}&lock=true`,
-            )
-            .pipe(untilDestroyed(this))
-            .subscribe((response: IArticleLockRO) => {
-              console.log('response: ', response);
+            this.apiService
+              .get<IArticleLockRO>(
+                `/articles/lock?articleSlug=${article.slug}&username=${auth.user.username}&lock=true`,
+              )
+              .pipe(untilDestroyed(this))
+              .subscribe((response: IArticleLockRO) => {
+                console.log('response: ', response);
 
-              if (response.msg === 'locked') {
-                 this.didLock = false;
-                 console.log('article locked');
-              }
-              else {
-                this.didLock = true;
-              }
-              this.initForm();
-            });
-        });
+                if (response.msg === 'locked') {
+                  this.didLock = false;
+                  console.log('article locked');
+                } else {
+                  this.didLock = true;
+                }
+                this.initForm();
+              });
+          });
       });
   }
   initForm() {
-
-   this.store
-     .select(articleQuery.selectData)
-     .pipe(untilDestroyed(this))
-     .subscribe((article) => this.store.dispatch(formsActions.setData({ data: article })));
+    this.store
+      .select(articleQuery.selectData)
+      .pipe(untilDestroyed(this))
+      .subscribe((article) => this.store.dispatch(formsActions.setData({ data: article })));
   }
 
   updateForm(changes: any) {

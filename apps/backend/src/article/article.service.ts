@@ -83,8 +83,7 @@ export class ArticleService {
 
           // Store the timer in the map
           this.unlockTimers.set(articleSlug, unlockTimer);
-        }
-        else {
+        } else {
           response = 'locked';
         }
       } else {
@@ -92,8 +91,7 @@ export class ArticleService {
           article.locked_by_user_id = null;
           await this.em.flush();
           response = 'unlocked';
-        }
-        else {
+        } else {
           response = 'locked';
         }
       }

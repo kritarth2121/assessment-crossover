@@ -6,6 +6,7 @@ import { authActions, LocalStorageJwtService, selectLoggedIn, selectUser } from 
 import { filter, take } from 'rxjs/operators';
 import { FooterComponent } from './layout/footer/footer.component';
 import { NavbarComponent } from './layout/navbar/navbar.component';
+import { MatIconModule } from '@angular/material/icon';
 
 @Component({
   selector: 'cdt-root',
@@ -13,7 +14,7 @@ import { NavbarComponent } from './layout/navbar/navbar.component';
 
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.css'],
-  imports: [FooterComponent, NavbarComponent, RouterModule, CommonModule],
+  imports: [FooterComponent, NavbarComponent, RouterModule, CommonModule, MatIconModule],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class AppComponent implements OnInit {

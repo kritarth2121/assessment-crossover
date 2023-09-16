@@ -10,22 +10,21 @@ import { User } from './src/user/user.entity';
 import { Tag } from './src/tag/tag.entity';
 import { Article } from './src/article/article.entity';
 import { Comment } from './src/article/comment.entity';
-import { InitialMigration } from './src/migrations/InitialMigration';
 
 export default defineConfig({
   host: 'localhost',
   port: 3306,
-  user: 'conduit',
-  password: 'conduit',
+  user: 'root',
+  password: 'pulse2017',
   dbName: 'conduit',
-  migrations: {
-    migrationsList: [
-      {
-        name: 'InitialMigration',
-        class: InitialMigration,
-      },
-    ],
-  },
+  // migrations: {
+  //   migrationsList: [
+  //     {
+  //       name: 'InitialMigration',
+  //       class: InitialMigration,
+  //     },
+  //   ],
+  // },
   entities: [User, Tag, Article, Comment],
   discovery: { disableDynamicFileAccess: true },
   seeder: {
