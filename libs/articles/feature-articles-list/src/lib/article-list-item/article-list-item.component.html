@@ -1,16 +1,25 @@
 <div class="article-preview">
   <div class="article-meta">
-    <a>
-      <img [src]="article.author.image" />
-    </a>
-    <div class="info">
-      <a data-e2e-id="article-author" class="author" [routerLink]="['/profile', article.author.username]">
-        {{ article.author.username }}
-      </a>
-      <span class="date">
-        {{ article.createdAt | date : 'longDate' }}
-      </span>
-    </div>
+    <table class="table">
+      <tbody>
+        <tr *ngFor="let author of article.authors">
+          <td>
+            <a>
+              <img [src]="author.image" />
+            </a>
+            <div class="info">
+              <a data-e2e-id="article-author" class="author" [routerLink]="['/profile', author.username]">
+                {{ author.username }}
+              </a>
+            </div>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+
+    <span class="date">
+      {{ article.createdAt | date : 'longDate' }}
+    </span>
     <button
       [ngClass]="{
         'btn-outline-primary': !article.favorited,

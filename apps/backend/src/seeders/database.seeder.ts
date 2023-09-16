@@ -17,7 +17,7 @@ export class DatabaseSeeder extends Seeder {
 
     const articles = [
       em.create(Article, {
-        author: authors.bennie,
+        authors: [authors.bennie],
         slug: 'how-to-do-something',
         title: 'How to do something',
         description: 'Lorem ipsum dolor sit amet',
@@ -28,7 +28,7 @@ export class DatabaseSeeder extends Seeder {
         updatedAt: new Date(),
       }),
       em.create(Article, {
-        author: authors.zolly,
+        authors: [authors.zolly],
         slug: 'how-to-do-something-else',
         title: 'How to do something else',
         tagList: [tags.coding.tag, tags.angular.tag],

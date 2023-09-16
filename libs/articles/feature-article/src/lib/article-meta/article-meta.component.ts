@@ -28,11 +28,14 @@ export class ArticleMetaComponent {
     }
   }
 
-  toggleFollow() {
-    if (this.article.author.following) {
-      this.unfollow.emit(this.article.author.username);
-    } else {
-      this.follow.emit(this.article.author.username);
+  toggleFollow(autherName: string) {
+    const author = this.article.authors.filter((a) => a.username === autherName);
+    if (author.length > 0) {
+      if (author[0].following) {
+        this.unfollow.emit(autherName);
+      } else {
+        this.follow.emit(autherName);
+      }
     }
   }
 

@@ -22,13 +22,15 @@ export const articleInitialState: ArticleState = {
     updatedAt: '',
     favorited: false,
     favoritesCount: 0,
-    author: {
-      username: '',
-      bio: '',
-      image: '',
-      following: false,
-      loading: false,
-    },
+    authors: [
+      {
+        username: '',
+        bio: '',
+        image: '',
+        following: false,
+        loading: false,
+      },
+    ],
   },
   comments: [],
   loaded: false,
@@ -74,7 +76,14 @@ export const articleFeature = createFeature({
       comments: articleInitialState.comments,
     })),
     on(articleActions.followSuccess, articleActions.unfollowSuccess, (state, action) => {
-      const data: Article = { ...state.data, author: action.profile };
+      var data: Article = { ...state.data };
+      // replace the author with the updated one
+      data.authors = data.authors.map((author) => {
+        if (author.username === action.profile.username) {
+          return action.profile;
+        }
+        return author;
+      });
       return { ...state, data };
     }),
     on(articlesActions.favoriteSuccess, articlesActions.unfavoriteSuccess, (state, action) => ({

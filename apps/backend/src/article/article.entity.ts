@@ -3,6 +3,7 @@ import {
   Collection,
   Entity,
   EntityDTO,
+  ManyToMany,
   ManyToOne,
   OneToMany,
   PrimaryKey,
@@ -11,7 +12,7 @@ import {
 } from '@mikro-orm/core';
 import slug from 'slug';
 
-import { User } from '../user/user.entity';
+import { User, UserDTO } from '../user/user.entity';
 import { Comment } from './comment.entity';
 
 @Entity()
@@ -40,8 +41,16 @@ export class Article {
   @Property({ type: ArrayType })
   tagList: string[] = [];
 
-  @ManyToOne(() => User)
-  author: User;
+  @ManyToMany({
+    entity: () => User,
+    inversedBy: (u) => u.articles,
+    owner: true,
+    pivotTable: 'article_authors',
+    joinColumn: 'article_id',
+    inverseJoinColumn: 'user_id',
+    hidden: true,
+  })
+  authors = new Collection<User>(this);
 
   @OneToMany(() => Comment, (comment) => comment.article, { eager: true, orphanRemoval: true })
   comments = new Collection<Comment>(this);
@@ -49,8 +58,16 @@ export class Article {
   @Property({ type: 'number' })
   favoritesCount = 0;
 
+  // Add the 'locked_by_user_id' field
+  @Property({ type: 'number', nullable: true }) // Allows storing user ID or NULL
+  locked_by_user_id: number | null;
+
+  // Add the 'last_activity_time' field
+  @Property({ type: 'timestamp', nullable: true }) // Allows storing timestamps or NULL
+  last_activity_time: Date | null;
+
   constructor(author: User, title: string, description: string, body: string) {
-    this.author = author;
+    this.authors.add(author);
     this.title = title;
     this.description = description;
     this.body = body;
@@ -60,8 +77,8 @@ export class Article {
   toJSON(user?: User) {
     const o = wrap<Article>(this).toObject() as ArticleDTO;
     o.favorited = user && user.favorites.isInitialized() ? user.favorites.contains(this) : false;
-    o.author = this.author.toJSON(user);
 
+    o.authors = this.authors.isInitialized() ? this.authors.getItems().map((a) => a.toJSON()) : [];
     return o;
   }
 }

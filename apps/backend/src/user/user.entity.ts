@@ -54,7 +54,7 @@ export class User {
   @ManyToMany(() => User, (u) => u.followers, { hidden: true })
   followed = new Collection<User>(this);
 
-  @OneToMany(() => Article, (article) => article.author, { hidden: true })
+  @ManyToMany(() => Article, (article) => article.authors, { hidden: true })
   articles = new Collection<Article>(this);
 
   constructor(username: string, email: string, password: string) {
@@ -72,6 +72,6 @@ export class User {
   }
 }
 
-interface UserDTO extends EntityDTO<User> {
+export interface UserDTO extends EntityDTO<User> {
   following?: boolean;
 }

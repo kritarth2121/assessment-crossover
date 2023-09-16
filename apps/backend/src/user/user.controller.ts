@@ -1,7 +1,8 @@
 import { Body, Controller, Delete, Get, HttpException, Param, Post, Put, UsePipes } from '@nestjs/common';
 import { ValidationPipe } from '../shared/pipes/validation.pipe';
 import { CreateUserDto, LoginUserDto, UpdateUserDto } from './dto';
-import { User } from './user.decorator';
+import { UserDec } from './user.decorator';
+import { User } from './user.entity';
 import { IUserRO } from './user.interface';
 import { UserService } from './user.service';
 
@@ -14,12 +15,12 @@ export class UserController {
   constructor(private readonly userService: UserService) {}
 
   @Get('user')
-  async findMe(@User('email') email: string): Promise<IUserRO> {
+  async findMe(@UserDec('email') email: string): Promise<IUserRO> {
     return this.userService.findByEmail(email);
   }
 
   @Put('user')
-  async update(@User('id') userId: number, @Body('user') userData: UpdateUserDto) {
+  async update(@UserDec('id') userId: number, @Body('user') userData: UpdateUserDto) {
     return this.userService.update(userId, userData);
   }
 

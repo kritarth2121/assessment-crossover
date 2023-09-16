@@ -1,11 +1,34 @@
 <div class="article-meta">
-  <a [routerLink]="['/profile', article.author.username]">
-    <img [src]="article.author.image" />
-  </a>
+  <table class="table">
+    <tbody>
+      <tr *ngFor="let author of article.authors">
+        <td>
+          <a [routerLink]="['/profile', author.username]">
+            <img [src]="author.image" />
+          </a>
+          <a class="author" [routerLink]="['/profile', author.username]">
+            {{ author.username }}
+          </a>
+          <span [hidden]="canModify">
+            <button
+              class="btn btn-sm action-btn"
+              [ngClass]="{
+                'btn-outline-secondary': !author.following,
+                'btn-secondary': author.following
+              }"
+              (click)="toggleFollow(author.username)"
+            >
+              <i class="ion-plus-round"></i>
+              &nbsp; {{ author.following ? 'Unfollow' : 'Follow' }}
+              {{ author.username }}
+            </button>
+          </span>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+
   <div class="info">
-    <a class="author" [routerLink]="['/profile', article.author.username]">
-      {{ article.author.username }}
-    </a>
     <span class="date">{{ article.createdAt | date : 'longDate' }}</span>
   </div>
 
@@ -20,19 +43,6 @@
   </span>
 
   <span [hidden]="canModify">
-    <button
-      class="btn btn-sm action-btn"
-      [ngClass]="{
-        'btn-outline-secondary': !article.author.following,
-        'btn-secondary': article.author.following
-      }"
-      (click)="toggleFollow()"
-    >
-      <i class="ion-plus-round"></i>
-      &nbsp; {{ article.author.following ? 'Unfollow' : 'Follow' }}
-      {{ article.author.username }}
-    </button>
-    &nbsp;&nbsp;
     <button
       class="btn btn-sm btn-outline-primary"
       [ngClass]="{
