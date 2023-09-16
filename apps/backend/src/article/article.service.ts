@@ -168,12 +168,12 @@ export class ArticleService {
     return { articles: res[0].map((a) => a.toJSON(user!)), articlesCount: res[1] };
   }
 
-  async findOne(userId: number, where: Partial<Article>): Promise<IArticleRO> {
+  async findOne(userId: number, where: Partial<Article>): Promise<any> {
     const user = userId
       ? await this.userRepository.findOneOrFail(userId, { populate: ['followers', 'favorites'] })
       : undefined;
     const article = await this.articleRepository.findOne(where, { populate: ['authors'] });
-    return { article: article && article.toJSON(user) } as IArticleRO;
+    return { article: article && article.toJSON(user) };
   }
 
   async addComment(userId: number, slug: string, dto: CreateCommentDto) {

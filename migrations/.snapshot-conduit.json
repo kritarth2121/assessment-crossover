@@ -12,124 +12,6 @@
           "nullable": false,
           "mappedType": "integer"
         },
-        "slug": {
-          "name": "slug",
-          "type": "varchar(255)",
-          "unsigned": false,
-          "autoincrement": false,
-          "primary": false,
-          "nullable": false,
-          "mappedType": "string"
-        },
-        "title": {
-          "name": "title",
-          "type": "varchar(255)",
-          "unsigned": false,
-          "autoincrement": false,
-          "primary": false,
-          "nullable": false,
-          "mappedType": "string"
-        },
-        "description": {
-          "name": "description",
-          "type": "varchar(255)",
-          "unsigned": false,
-          "autoincrement": false,
-          "primary": false,
-          "nullable": false,
-          "mappedType": "string"
-        },
-        "body": {
-          "name": "body",
-          "type": "varchar(255)",
-          "unsigned": false,
-          "autoincrement": false,
-          "primary": false,
-          "nullable": false,
-          "mappedType": "string"
-        },
-        "created_at": {
-          "name": "created_at",
-          "type": "datetime",
-          "unsigned": false,
-          "autoincrement": false,
-          "primary": false,
-          "nullable": false,
-          "length": 0,
-          "mappedType": "datetime"
-        },
-        "updated_at": {
-          "name": "updated_at",
-          "type": "datetime",
-          "unsigned": false,
-          "autoincrement": false,
-          "primary": false,
-          "nullable": false,
-          "length": 0,
-          "mappedType": "datetime"
-        },
-        "tag_list": {
-          "name": "tag_list",
-          "type": "text",
-          "unsigned": false,
-          "autoincrement": false,
-          "primary": false,
-          "nullable": false,
-          "mappedType": "text"
-        },
-        "favorites_count": {
-          "name": "favorites_count",
-          "type": "int",
-          "unsigned": false,
-          "autoincrement": false,
-          "primary": false,
-          "nullable": false,
-          "mappedType": "integer"
-        },
-        "locked_by_user_id": {
-          "name": "locked_by_user_id",
-          "type": "int",
-          "unsigned": false,
-          "autoincrement": false,
-          "primary": false,
-          "nullable": true,
-          "mappedType": "integer"
-        },
-        "last_activity_time": {
-          "name": "last_activity_time",
-          "type": "datetime",
-          "unsigned": false,
-          "autoincrement": false,
-          "primary": false,
-          "nullable": true,
-          "length": 0,
-          "mappedType": "datetime"
-        }
-      },
-      "name": "article",
-      "indexes": [
-        {
-          "keyName": "PRIMARY",
-          "columnNames": ["id"],
-          "composite": false,
-          "primary": true,
-          "unique": true
-        }
-      ],
-      "checks": [],
-      "foreignKeys": {}
-    },
-    {
-      "columns": {
-        "id": {
-          "name": "id",
-          "type": "int",
-          "unsigned": true,
-          "autoincrement": true,
-          "primary": true,
-          "nullable": false,
-          "mappedType": "integer"
-        },
         "tag": {
           "name": "tag",
           "type": "varchar(255)",
@@ -222,6 +104,149 @@
       ],
       "checks": [],
       "foreignKeys": {}
+    },
+    {
+      "columns": {
+        "id": {
+          "name": "id",
+          "type": "int",
+          "unsigned": true,
+          "autoincrement": true,
+          "primary": true,
+          "nullable": false,
+          "mappedType": "integer"
+        },
+        "slug": {
+          "name": "slug",
+          "type": "varchar(255)",
+          "unsigned": false,
+          "autoincrement": false,
+          "primary": false,
+          "nullable": false,
+          "mappedType": "string"
+        },
+        "title": {
+          "name": "title",
+          "type": "varchar(255)",
+          "unsigned": false,
+          "autoincrement": false,
+          "primary": false,
+          "nullable": false,
+          "mappedType": "string"
+        },
+        "description": {
+          "name": "description",
+          "type": "varchar(255)",
+          "unsigned": false,
+          "autoincrement": false,
+          "primary": false,
+          "nullable": false,
+          "mappedType": "string"
+        },
+        "body": {
+          "name": "body",
+          "type": "varchar(255)",
+          "unsigned": false,
+          "autoincrement": false,
+          "primary": false,
+          "nullable": false,
+          "mappedType": "string"
+        },
+        "created_at": {
+          "name": "created_at",
+          "type": "datetime",
+          "unsigned": false,
+          "autoincrement": false,
+          "primary": false,
+          "nullable": false,
+          "length": 0,
+          "mappedType": "datetime"
+        },
+        "updated_at": {
+          "name": "updated_at",
+          "type": "datetime",
+          "unsigned": false,
+          "autoincrement": false,
+          "primary": false,
+          "nullable": false,
+          "length": 0,
+          "mappedType": "datetime"
+        },
+        "tag_list": {
+          "name": "tag_list",
+          "type": "text",
+          "unsigned": false,
+          "autoincrement": false,
+          "primary": false,
+          "nullable": false,
+          "mappedType": "text"
+        },
+        "main_author_id": {
+          "name": "main_author_id",
+          "type": "int",
+          "unsigned": true,
+          "autoincrement": false,
+          "primary": false,
+          "nullable": false,
+          "mappedType": "integer"
+        },
+        "favorites_count": {
+          "name": "favorites_count",
+          "type": "int",
+          "unsigned": false,
+          "autoincrement": false,
+          "primary": false,
+          "nullable": false,
+          "mappedType": "integer"
+        },
+        "locked_by_user_id": {
+          "name": "locked_by_user_id",
+          "type": "int",
+          "unsigned": false,
+          "autoincrement": false,
+          "primary": false,
+          "nullable": true,
+          "mappedType": "integer"
+        },
+        "last_activity_time": {
+          "name": "last_activity_time",
+          "type": "datetime",
+          "unsigned": false,
+          "autoincrement": false,
+          "primary": false,
+          "nullable": true,
+          "length": 0,
+          "mappedType": "datetime"
+        }
+      },
+      "name": "article",
+      "indexes": [
+        {
+          "columnNames": ["main_author_id"],
+          "composite": false,
+          "keyName": "article_main_author_id_index",
+          "primary": false,
+          "unique": false
+        },
+        {
+          "keyName": "PRIMARY",
+          "columnNames": ["id"],
+          "composite": false,
+          "primary": true,
+          "unique": true
+        }
+      ],
+      "checks": [],
+      "foreignKeys": {
+        "article_main_author_id_foreign": {
+          "constraintName": "article_main_author_id_foreign",
+          "columnNames": ["main_author_id"],
+          "localTableName": "article",
+          "referencedColumnNames": ["id"],
+          "referencedTableName": "user",
+          "updateRule": "cascade"
+        }
+      }
     },
     {
       "columns": {

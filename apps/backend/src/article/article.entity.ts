@@ -52,6 +52,9 @@ export class Article {
   })
   authors = new Collection<User>(this);
 
+  @ManyToOne(() => User)
+  main_author: User;
+
   @OneToMany(() => Comment, (comment) => comment.article, { eager: true, orphanRemoval: true })
   comments = new Collection<Comment>(this);
 
@@ -68,6 +71,7 @@ export class Article {
 
   constructor(author: User, title: string, description: string, body: string) {
     this.authors.add(author);
+    this.main_author = author;
     this.title = title;
     this.description = description;
     this.body = body;
@@ -75,9 +79,9 @@ export class Article {
   }
 
   toJSON(user?: User) {
-    const o = wrap<Article>(this).toObject() as ArticleDTO;
-    o.favorited = user && user.favorites.isInitialized() ? user.favorites.contains(this) : false;
-
+    const o = wrap<Article>(this).toObject();
+    // o.favorited = user && user.favorites.isInitialized() ? user.favorites.contains(this) : false;
+    o.main_author = this.main_author.toJSON();
     o.authors = this.authors.isInitialized() ? this.authors.getItems().map((a) => a.toJSON()) : [];
     return o;
   }

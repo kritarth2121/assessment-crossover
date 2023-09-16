@@ -3,37 +3,23 @@
   <h1 class="tw-text-xl">{{ article.description }}</h1>
 
   <section class="tw-flex tw-justify-between tw-w-full tw-flex-row">
-    <table>
-      <tbody>
-        <tr *ngFor="let author of article.authors">
-          <td>
-            <a [routerLink]="['/profile', author.username]">
-              <img class="tw-h-10 tw-w-10 tw-rounded-full" [src]="author.image" />
+    <div>
+      <div>
+        <div class="tw-flex tw-flex-row tw-space-x-3">
+          <div class="tw-p-1">
+            <a [routerLink]="['/profile', article.main_author?.username]">
+              <img class="tw-h-10 tw-w-10 tw-rounded-full" [src]="article.main_author?.image" />
             </a>
-            <a class="author" [routerLink]="['/profile', author.username]">
-              {{ author.username }}
+            <a class="tw-text-xl tw-text-black" [routerLink]="['/profile', article.main_author?.username]">
+              {{ article.main_author?.username }}
             </a>
-            <span [hidden]="canModify">
-              <button
-                class="btn btn-sm action-btn"
-                [ngClass]="{
-                  'btn-outline-secondary': !author.following,
-                  'btn-secondary': author.following
-                }"
-                (click)="toggleFollow(author.username)"
-              >
-                <i class="ion-plus-round"></i>
-                &nbsp; {{ author.following ? 'Unfollow' : 'Follow' }}
-                {{ author.username }}
-              </button>
-            </span>
-          </td>
-        </tr>
+          </div>
+        </div>
         <div class="info">
           <span class="date">{{ article.createdAt | date : 'longDate' }}</span>
         </div>
-      </tbody>
-    </table>
+      </div>
+    </div>
 
     <span [hidden]="!canModify" class="tw-h-10 tw-flex tw-justify-between tw-w-fit tw-flex-row tw-space-x-3">
       <a
@@ -47,7 +33,49 @@
         <i class="ion-trash-a tw-text-xl tw-text-white"></i>
       </button>
     </span>
+    <span [hidden]="canModify" class="tw-h-10 tw-flex tw-justify-between tw-w-fit tw-flex-row tw-space-x-3">
+      <button
+        class="btn btn-sm action-btn tw-text-lg tw-bg-white"
+        [ngClass]="{
+          'tw-border  tw-border-green-500 tw-text-green-500': !article.main_author?.following,
+          'tw-border  tw-border-gray-500 tw-text-gray-500': article.main_author?.following
+        }"
+        (click)="toggleFollow(article.main_author?.username)"
+      >
+        {{ article.main_author?.following ? 'Unfollow' : 'Follow' }}
+      </button>
+      <button
+        class="btn btn-sm btn-outline-primary tw-w-8"
+        [ngClass]="{
+          'tw-border  tw-border-green-500 tw-text-green-500': !article.favorited,
+          'tw-border  tw-border-gray-500 tw-text-gray-500': article.favorited
+        }"
+        (click)="toggleFavorite()"
+      >
+        <i class="ion-android-bookmark"></i>
+        <!-- &nbsp; {{ article.favorited ? 'Unfavorite' : 'Favorite' }} Post
+                                        <span class="counter">({{ article.favoritesCount }})</span> -->
+      </button>
+    </span>
   </section>
+  <div>
+    <h4 class="tw-text-gray-500 tw-text-xs">Co - authors :</h4>
+    <div class="tw-flex tw-flex-row tw-space-x-3">
+      <div *ngFor="let author of article.authors">
+        <div
+          class="tw-w-fit tw-bg-gray-200 tw-rounded-md tw-p-1"
+          *ngIf="author.username != article.main_author?.username"
+        >
+          <a [routerLink]="['/profile', author.username]">
+            <img class="tw-h-4 tw-w-4 tw-rounded-full" [src]="author.image" />
+          </a>
+          <a class="tw-text-black tw-text-sm" [routerLink]="['/profile', author.username]">
+            {{ author.username }}
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
   <hr />
   <section class="tw-my-4">
     {{ article.body }}

@@ -38,7 +38,7 @@ export class ArticleController {
   }
 
   @Get(':slug')
-  async findOne(@UserDec('id') userId: number, @Param('slug') slug: string): Promise<IArticleRO> {
+  async findOne(@UserDec('id') userId: number, @Param('slug') slug: string): Promise<any> {
     return this.articleService.findOne(userId, { slug });
   }
 

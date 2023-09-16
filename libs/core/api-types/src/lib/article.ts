@@ -11,6 +11,7 @@ export interface Article {
   favorited: boolean;
   favoritesCount: number;
   authors: Profile[];
+  main_author?: Profile;
 }
 
 export interface ArticleResponse {

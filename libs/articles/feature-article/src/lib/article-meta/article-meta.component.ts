@@ -28,7 +28,7 @@ export class ArticleMetaComponent {
     }
   }
 
-  toggleFollow(autherName: string) {
+  toggleFollow(autherName?: string) {
     const author = this.article.authors.filter((a) => a.username === autherName);
     if (author.length > 0) {
       if (author[0].following) {
