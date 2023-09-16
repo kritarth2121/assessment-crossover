@@ -1,4 +1,5 @@
 <fieldset [formGroup]="group" class="form-group">
+  <div class="tw-text-gray-800 tw-textlg tw-font-medium">{{ field?.title }}</div>
   <input
     [formControlName]="field?.name"
     [attr.placeholder]="field?.placeholder"

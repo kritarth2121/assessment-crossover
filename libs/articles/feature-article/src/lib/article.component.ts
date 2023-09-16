@@ -16,7 +16,7 @@ const structure: Field[] = [
   {
     type: 'TEXTAREA',
     name: 'comment',
-    placeholder: 'Write a comment...',
+    placeholder: 'Add a comment',
     attrs: {
       rows: 3,
     },

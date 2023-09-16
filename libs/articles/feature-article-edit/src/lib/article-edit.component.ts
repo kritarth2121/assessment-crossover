@@ -16,31 +16,39 @@ const structure: Field[] = [
   {
     type: 'INPUT',
     name: 'title',
-    placeholder: 'Article Title',
+    title: 'Article Title',
+    placeholder: 'Enter a cool & snappy title',
     validator: [Validators.required],
   },
   {
     type: 'INPUT',
     name: 'description',
-    placeholder: "What's this article about?",
+    title: "What's this article about?",
+    placeholder: 'Enter a one sentence summary of the article',
+
     validator: [Validators.required],
   },
   {
     type: 'TEXTAREA',
     name: 'body',
-    placeholder: 'Write your article (in markdown)',
+    title: 'Write your article',
+    placeholder: 'Write your article ',
+
     validator: [Validators.required],
   },
   {
     type: 'INPUT',
     name: 'tagList',
-    placeholder: 'Enter Tags',
+    title: 'Enter Tags',
+    placeholder: 'Add Tags',
+
     validator: [],
   },
   {
     type: 'INPUT',
     name: 'authorsCS',
-    placeholder: 'Add Authors by email',
+    title: 'Add Authors by email',
+    placeholder: 'Add co-authors',
     validator: [],
   },
 ];

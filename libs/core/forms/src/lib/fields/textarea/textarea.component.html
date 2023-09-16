@@ -1,4 +1,6 @@
 <fieldset [formGroup]="group" class="form-group">
+  <div class="tw-text-gray-800 tw-textlg tw-font-medium">{{ field?.title }}</div>
+
   <textarea
     class="form-control form-control-lg"
     [attr.rows]="field?.attrs?.rows || 5"

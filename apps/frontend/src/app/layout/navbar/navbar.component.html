@@ -1,5 +1,5 @@
-<nav class="navbar navbar-light">
-  <div class="container">
+<nav class="navbar navbar-light tw-bg-gray-100">
+  <div class="container tw-flex tw-justify-between tw-items-center">
     <a class="navbar-brand !tw-text-primary" routerLink="/">Conduit</a>
     <!-- Logged out user -->
     <ul *ngIf="!isLoggedIn" class="nav navbar-nav pull-xs-right">
@@ -16,7 +16,7 @@
     </ul>
 
     <!-- Logged in user -->
-    <ul *ngIf="isLoggedIn" class="nav navbar-nav pull-xs-right">
+    <ul *ngIf="isLoggedIn" class="nav navbar-nav pull-xs-right tw-flex tw-justify-between tw-items-center">
       <li class="nav-item">
         <!-- Add "active" class when you're on that page" -->
         <a
@@ -24,28 +24,30 @@
           [routerLink]="['/']"
           routerLinkActive="active"
           [routerLinkActiveOptions]="{ exact: true }"
-          >Home</a
         >
+          <i class="ion-home tw-text-primary tw-text-2xl"></i
+        ></a>
       </li>
       <li class="nav-item">
         <a class="nav-link" routerLink="/editor" routerLinkActive="active">
-          <i class="ion-compose"></i>&nbsp;New Post
+          <i class="ion-compose tw-text-primary tw-text-2xl"></i>
         </a>
       </li>
       <li class="nav-item">
         <a class="nav-link" routerLink="/settings" routerLinkActive="active">
-          <i class="ion-gear-a"></i>&nbsp;Settings
+          <i class="ion-gear-a tw-text-primary tw-text-2xl"></i>&nbsp;
         </a>
       </li>
       <li class="nav-item">
         <a
           data-e2e-id="logedin-user"
-          class="nav-link"
+          class="!tw-text-black tw-flex tw-flex-row tw-items-center tw-space-x-3 tw-text-xl"
           [routerLink]="['/profile', user.username]"
           routerLinkActive="active"
         >
-          <img [src]="user.image" *ngIf="user.image" class="user-pic" />
-          {{ user.username }}
+          <span>{{ user.username }}</span>
+
+          <img [src]="user.image" *ngIf="user.image" class="user-pic tw-rounded-full tw-h-8 tw-w-8" />
         </a>
       </li>
     </ul>

@@ -1,59 +1,55 @@
-<div class="article-meta">
-  <table class="table">
-    <tbody>
-      <tr *ngFor="let author of article.authors">
-        <td>
-          <a [routerLink]="['/profile', author.username]">
-            <img [src]="author.image" />
-          </a>
-          <a class="author" [routerLink]="['/profile', author.username]">
-            {{ author.username }}
-          </a>
-          <span [hidden]="canModify">
-            <button
-              class="btn btn-sm action-btn"
-              [ngClass]="{
-                'btn-outline-secondary': !author.following,
-                'btn-secondary': author.following
-              }"
-              (click)="toggleFollow(author.username)"
-            >
-              <i class="ion-plus-round"></i>
-              &nbsp; {{ author.following ? 'Unfollow' : 'Follow' }}
+<div class="tw-mx-auto flex tw-flex-row">
+  <h1 class="tw-text-4xl tw-font-bold">{{ article.title }}</h1>
+  <h1 class="tw-text-xl">{{ article.description }}</h1>
+
+  <section class="tw-flex tw-justify-between tw-w-full tw-flex-row">
+    <table>
+      <tbody>
+        <tr *ngFor="let author of article.authors">
+          <td>
+            <a [routerLink]="['/profile', author.username]">
+              <img class="tw-h-10 tw-w-10 tw-rounded-full" [src]="author.image" />
+            </a>
+            <a class="author" [routerLink]="['/profile', author.username]">
               {{ author.username }}
-            </button>
-          </span>
-        </td>
-      </tr>
-    </tbody>
-  </table>
+            </a>
+            <span [hidden]="canModify">
+              <button
+                class="btn btn-sm action-btn"
+                [ngClass]="{
+                  'btn-outline-secondary': !author.following,
+                  'btn-secondary': author.following
+                }"
+                (click)="toggleFollow(author.username)"
+              >
+                <i class="ion-plus-round"></i>
+                &nbsp; {{ author.following ? 'Unfollow' : 'Follow' }}
+                {{ author.username }}
+              </button>
+            </span>
+          </td>
+        </tr>
+        <div class="info">
+          <span class="date">{{ article.createdAt | date : 'longDate' }}</span>
+        </div>
+      </tbody>
+    </table>
 
-  <div class="info">
-    <span class="date">{{ article.createdAt | date : 'longDate' }}</span>
-  </div>
+    <span [hidden]="!canModify" class="tw-h-10 tw-flex tw-justify-between tw-w-fit tw-flex-row tw-space-x-3">
+      <a
+        class="tw-text-gray-600 tw-bg-gray-300 tw-p-2 tw-rounded-lg tw-flex tw-items-center"
+        [routerLink]="['/editor', article.slug]"
+      >
+        Edit Article
+      </a>
 
-  <span [hidden]="!canModify">
-    <a class="btn btn-sm btn-outline-secondary" [routerLink]="['/editor', article.slug]">
-      <i class="ion-edit"></i> Edit Article
-    </a>
-
-    <button class="btn btn-sm btn-outline-danger" (click)="deleteArticle()">
-      <i class="ion-trash-a"></i> Delete Article
-    </button>
-  </span>
-
-  <span [hidden]="canModify">
-    <button
-      class="btn btn-sm btn-outline-primary"
-      [ngClass]="{
-        'btn-outline-primary': !article.favorited,
-        'btn-primary': article.favorited
-      }"
-      (click)="toggleFavorite()"
-    >
-      <i class="ion-heart"></i>
-      &nbsp; {{ article.favorited ? 'Unfavorite' : 'Favorite' }} Post
-      <span class="counter">({{ article.favoritesCount }})</span>
-    </button>
-  </span>
+      <button class="btn btn-sm btn-outline-danger tw-bg-red-600 tw-rounded-xl" (click)="deleteArticle()">
+        <i class="ion-trash-a tw-text-xl tw-text-white"></i>
+      </button>
+    </span>
+  </section>
+  <hr />
+  <section class="tw-my-4">
+    {{ article.body }}
+  </section>
 </div>
