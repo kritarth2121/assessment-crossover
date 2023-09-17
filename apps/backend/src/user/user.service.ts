@@ -23,7 +23,7 @@ export class UserService {
       password: crypto.createHmac('sha256', loginUserDto.password).digest('hex'),
     };
 
-    return (await this.userRepository.findOne(findOneOptions))!;
+    return (await this.userRepository.findOneOrFail(findOneOptions))!;
   }
 
   async create(dto: CreateUserDto): Promise<IUserRO> {

@@ -173,7 +173,9 @@ export class ArticleService {
       ? await this.userRepository.findOneOrFail(userId, { populate: ['followers', 'favorites'] })
       : undefined;
     const article = await this.articleRepository.findOne(where, { populate: ['authors'] });
-    return { article: article && article.toJSON(user) };
+    const lockedUser =
+      article?.locked_by_user_id && (await this.userRepository.findOneOrFail(article?.locked_by_user_id));
+    return { article: article && { ...article.toJSON(user), lockedUser } };
   }
 
   async addComment(userId: number, slug: string, dto: CreateCommentDto) {
@@ -259,9 +261,9 @@ export class ArticleService {
       { populate: ['followers', 'favorites', 'articles'] },
     );
     const article = await this.articleRepository.findOne({ slug }, { populate: ['authors'] });
-
     // if articleData has property authors, assign it to a constant
     const { authorsCS, authors, createdAt, locked_by_user_id, last_activity_time, ...data } = articleData;
+    delete data['lockedUser'];
     // if authors is defined
     if (authorsCS && article && typeof authorsCS === 'string') {
       const author_mails = authorsCS.split(',').map((author_email) => {

@@ -2,6 +2,9 @@ import { Component, Input, ChangeDetectionStrategy, EventEmitter, Output } from 
 import { RouterModule } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { Article } from '@realworld/core/api-types';
+import { Store } from '@ngrx/store';
+import { selectUser } from '../../../../../auth/data-access/src';
+
 @Component({
   selector: 'cdt-article-meta',
   standalone: true,
@@ -19,6 +22,7 @@ export class ArticleMetaComponent {
   @Output() unfavorite: EventEmitter<string> = new EventEmitter();
   @Output() favorite: EventEmitter<string> = new EventEmitter();
   @Output() delete: EventEmitter<string> = new EventEmitter();
+  constructor(private readonly store: Store) {}
 
   toggleFavorite() {
     if (this.article.favorited) {
@@ -27,6 +31,7 @@ export class ArticleMetaComponent {
       this.favorite.emit(this.article.slug);
     }
   }
+  user$ = this.store.select(selectUser);
 
   toggleFollow(autherName?: string) {
     const author = this.article.authors.filter((a) => a.username === autherName);

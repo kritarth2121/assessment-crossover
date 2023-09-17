@@ -14,6 +14,7 @@ import slug from 'slug';
 
 import { User, UserDTO } from '../user/user.entity';
 import { Comment } from './comment.entity';
+import { UserRepository } from '../user/user.repository';
 
 @Entity()
 export class Article {
@@ -79,10 +80,11 @@ export class Article {
   }
 
   toJSON(user?: User) {
-    const o = wrap<Article>(this).toObject();
+    const o = wrap<Article>(this).toObject() as any;
     // o.favorited = user && user.favorites.isInitialized() ? user.favorites.contains(this) : false;
     o.main_author = this.main_author.toJSON();
-    o.authors = this.authors.isInitialized() ? this.authors.getItems().map((a) => a.toJSON()) : [];
+    console.log(this);
+    o.authors = this.authors?.isInitialized() ? this.authors.getItems().map((a) => a?.toJSON()) : [];
     return o;
   }
 }

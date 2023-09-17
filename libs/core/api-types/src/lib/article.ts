@@ -12,6 +12,7 @@ export interface Article {
   favoritesCount: number;
   authors: Profile[];
   main_author?: Profile;
+  lockedUser?: Profile;
 }
 
 export interface ArticleResponse {

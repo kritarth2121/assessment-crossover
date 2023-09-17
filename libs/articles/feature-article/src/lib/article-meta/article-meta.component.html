@@ -1,6 +1,12 @@
 <div class="tw-mx-auto flex tw-flex-row">
   <h1 class="tw-text-4xl tw-font-bold">{{ article.title }}</h1>
   <h1 class="tw-text-xl">{{ article.description }}</h1>
+  <h1
+    class="tw-text-xl tw-bg-blue-200 tw-rounded-lg tw-text-primary tw-p-1 tw-font-bold"
+    *ngIf="article.lockedUser && article.lockedUser.username != (user$ | async)?.username"
+  >
+    {{ article.lockedUser.username }} is currently editing this article
+  </h1>
 
   <section class="tw-flex tw-justify-between tw-w-full tw-flex-row">
     <div>
@@ -25,6 +31,9 @@
       <a
         class="tw-text-gray-600 tw-bg-gray-300 tw-p-2 tw-rounded-lg tw-flex tw-items-center"
         [routerLink]="['/editor', article.slug]"
+        [ngClass]="{
+          'tw-bg-gray-100 tw-text-gray-100  tw-cursor-not-allowed tw-pointer-events-none': article.lockedUser && article.lockedUser.username!=(user$ | async)?.username,
+        }"
       >
         Edit Article
       </a>
